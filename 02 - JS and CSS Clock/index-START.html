@@ -62,13 +62,52 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.39, 0.575, 0.565, 1);
     }
 
   </style>
 
   <script>
 
+    var seconds = document.querySelector('.second-hand');
+    seconds.style.background = 'red';
+    
+    function setDate(){
 
+      var date = new Date();
+      var seconds = date.getSeconds();
+      var minutes = date.getMinutes();
+      var hours = date.getHours();
+
+      var second = document.querySelector('.second-hand');
+      second.style.transform =  `rotate(${(seconds)*6 + 90}deg)`;
+
+      var minute = document.querySelector('.min-hand');
+      minute.style.transform =  `rotate(${(minutes)*6 + 90}deg)`;
+      
+
+      var hour = document.querySelector('.hour-hand');
+      hour.style.transform =  `rotate(${(hours)*30 + 90}deg)`;
+      hour.style.height = '10px';
+
+    }
+
+    // function Date(){
+    //   var date = new Date();
+    //   // var hour = date.getHours();
+    //   var second = date.getSeconds();
+    //   console.log(second);
+
+    //   // var divHour = document.querySelector('.hour-hand');
+    //   // divHour.style.transform = `rotate(${(hour)*30+90}deg)`
+  
+    //   // var divSecond = document.querySelector('.second-hand');
+    //   // divSecond.style.transform = `rotate(${(second)*6+90}deg)`;
+    // }    
+
+    setInterval(setDate, 1000);
   </script>
 </body>
 </html>
