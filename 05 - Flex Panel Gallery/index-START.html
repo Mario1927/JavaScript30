@@ -47,6 +47,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
     }
 
@@ -61,34 +62,17 @@
       margin: 0;
       width: 100%;
       transition: transform 0.5s;
-      display: flex;
-      flex: 1 0 auto;
-      justify-content: center;
-      align-items: center;
     }
-
-    .panel > *:first-child {
-      transform: translateY(-100%)
-    }
-
-    .panel.panel.open-active > *:first-child {
-      transform: translateY(0);
-    }
-
-    .panel > *:last-child {
-      transform: translateY(100%)
-    }
-
-    .panel.panel.open-active > *:last-child {
-      transform: translateY(0);
-    }
-
 
     .panel p {
       text-transform: uppercase;
       font-family: 'Amatic SC', cursive;
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
       font-size: 2em;
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     .panel p:nth-child(2) {
@@ -96,15 +80,26 @@
     }
 
     .panel.open {
-      flex: 5;
       font-size: 40px;
+      flex: 5;
     }
 
-    @media only screen and (max-width: 600px) {
-      .panel p {
-        font-size: 1em;
-      }
+    .panel p:first-child {
+      transform: translateY(-100%);
     }
+
+    .panel p:last-child {
+      transform: translateY(100%);
+    }
+
+    .panel.open-active p:first-child {
+      transform: translateY(0);
+    }
+
+    .panel.open-active p:last-child {
+      transform: translateY(0);
+    }
+
   </style>
 
 
@@ -137,20 +132,23 @@
   </div>
 
   <script>
-    const panels = document.querySelectorAll('.panel');
 
-    function toggleOpen(){
+    function openingPanels(){
+      // e.target.classList.add('open');
       this.classList.toggle('open');
     }
 
-    function toggleActive(e){
-      if (e.propertyName.includes('flex')) this.classList.toggle('open-active');
+    function transitionedPanels(e){
+      if (e.propertyName.includes('flex')) {this.classList.toggle('open-active')}
     }
 
-    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
-    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
+    var panels = document.querySelectorAll('.panel');
+    panels.forEach(p => p.addEventListener('click', openingPanels))
+    panels.forEach(p => p.addEventListener('transitionend', transitionedPanels))
 
   </script>
+
+
 
 </body>
 </html>
